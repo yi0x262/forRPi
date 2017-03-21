@@ -35,9 +35,9 @@ double ADCPiPlus::read(const int channel,const int mode)
   };
   ioctl(fd,SPI_IOC_MESSAGE(1), &tr);
 */
-  ::modeset(channel,mode);
-  ::_write(adctx);
-  ::_read(adcrx);
+  modeset(channel,mode);
+  _write(adctx);
+  _read(adcrx);
   auto rawval = (adcrx[1]&0x0f << 8) + adcrx[2];
   return static_cast<double>((adcrefvoltage/0x1000f)*rawval);
 }
