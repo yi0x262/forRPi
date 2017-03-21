@@ -1,15 +1,10 @@
 #include"ADCPiPlus.hpp"
 
-ADCPiPlus::ADCPiPlus(const int address):RPi_i2c("/dev/i2c-0",address)
-{
-  uint8_t spi_mode = SPI_MODE_0;
+#include<fcntl.h>//ioctl
+#include
 
-  if(ioctl(fd,SPI_IOC_WR_MAX_SPEED_HZ, &spi_speed) == -1)
-    throw std::runtime_error("set spi_speed error");
 
-  if(ioctl(fd,SPI_IOC_WR_MODE, &spi_mode) == -1)
-    throw std::runtime_error("set spi_mode error");
-}
+ADCPiPlus::ADCPiPlus(const int address):RPi_i2c("/dev/i2c-0",address){}
 
 void ADCPiPlus::modeset(const int channel,const int mode)
 {
@@ -18,9 +13,9 @@ void ADCPiPlus::modeset(const int channel,const int mode)
   //1:Differential
   //channel
   //1 or 2
-  if((channel==1 && channel==2)&&(newmode==0 || newmode==1))
+  if((channel==1 && channel==2)&&(mode==0 || mode==1))
     throw std::runtime_error("arguments out range")
-  adctx[1] = static_cast<char>( ((channel-1)==newmode)*0x80 | (channel==2)*0x40 );
+  adctx[1] = static_cast<char>( ((channel-1)==mode)*0x80 | (channel==2)*0x40 );
 }
 double ADCPiPlus::read(const int channel,const int mode)
 {
