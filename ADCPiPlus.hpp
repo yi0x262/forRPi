@@ -10,4 +10,4 @@ class ADCPiPlus : RPi_i2c
 public:
   ADCPiPlus(const int address);
   double read(const int channel,const int mode);
-}
+};

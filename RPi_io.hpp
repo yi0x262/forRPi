@@ -7,4 +7,4 @@ protected:
 public:
   RPi_io(const char* device);
   ~RPi_io();
-}
+};
