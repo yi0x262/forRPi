@@ -1,5 +1,6 @@
 #include"RPi_io.hpp"
 #include<fcntl.h>//open,close
+#include<unistd.h>//close
 #include<stdexcept>//runtime_error
 
 RPi_io::RPi_io(const char* device)
