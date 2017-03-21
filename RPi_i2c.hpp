@@ -3,8 +3,8 @@
 
 class RPi_i2c:public RPi_io
 {
-  int _read(char buffer[]);
-  int _write(char buffer[]);
+  int _read(char buffer[])const;
+  int _write(char buffer[])const;
 public:
   RPi_i2c(const char device[],const int address);
 };
