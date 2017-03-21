@@ -1,7 +1,7 @@
 class RPi_io
 {
-  int fd;//file discriptor
 protected:
+  int fd;//file discriptor
   virtual int _read(char buf[]) = 0;
   virtual int _write(char buf[]) = 0;
 public:
