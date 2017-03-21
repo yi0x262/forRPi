@@ -1,6 +1,6 @@
 #include"RPi_i2c.hpp"
 
-class ADCPiPlus : RPi_i2c
+class ADCPiPlus : public RPi_i2c
 {
   char adctx[3] = {0x01,0x80,0x00};
   char adcrx[3];

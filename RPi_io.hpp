@@ -6,5 +6,5 @@ protected:
   virtual int _write(char buf[]) = 0;
 public:
   RPi_io(const char* device);
-  ~RPi_io();
+  virtual ~RPi_io();
 };
