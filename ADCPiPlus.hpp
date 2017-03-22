@@ -8,6 +8,6 @@ class ADCPiPlus : public RPi_i2c
   char adcrx[4];
   void modeset(const int channel,const int conversion,const int bit_rate,const int pga);
 public:
-  ADCPiPlus(int address);
-  double read(const int channel,const int mode);
+  ADCPiPlus(int address,const int channel,const int conversion,const int bit_rate,const int pga);
+  double read();
 };

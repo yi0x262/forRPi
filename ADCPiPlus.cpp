@@ -18,7 +18,7 @@ void ADCPiPlus::modeset(const int channel,const int conversion,const int bit_rat
   //bit_rate  : 12,14,16,18
   //conversion: 0,1
   //channel   : 1,2,3,4
-  adctx = std::log2(0x0f&pga)
+  adctx = static_cast<int>(std::log2(0x0f&pga))
         | ((bit_rate/2-6)&0x03 << 2)
         | ((conversion==1) << 4)
         | ((channel-1)&0x03 << 5)
