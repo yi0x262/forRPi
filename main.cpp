@@ -10,6 +10,8 @@ int main(int argc,char* argv[])
   int conversion = atoi(argv[3]);
   int bit_rate = atoi(argv[4]);
   int pga = atoi(argv[5]);
+
+  std::cout << address << channel << conversion << bit_rate << pga << std::endl;
   ADCPiPlus adc(address,channel,conversion,bit_rate,pga);
   while(1)std::cout << adc.read() << std::endl;
 
