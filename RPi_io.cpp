@@ -2,7 +2,7 @@
 #include<fcntl.h>//open,close
 #include<unistd.h>//close
 #include<stdexcept>//runtime_error
-
+#include<errno.h>
 RPi_io::RPi_io(const char* device)
 {
   if((fd = open(device,O_RDWR)) < 0){
