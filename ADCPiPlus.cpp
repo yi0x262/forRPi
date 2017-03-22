@@ -23,7 +23,7 @@ void ADCPiPlus::modeset(const int channel,const int conversion,const int bit_rat
         | ((conversion==1) << 4)
         | ((channel-1)&0x03 << 5)
         | 0x80;
-  lsb = 0.001/(bit_rate-11);
+  lsb = 0.001/(1 << bit_rate-11);
   gain = pga/2.;
 }
 double ADCPiPlus::read()
