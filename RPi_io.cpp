@@ -4,6 +4,7 @@
 #include<unistd.h>//close
 #include<stdexcept>//runtime_error
 #include<errno.h>
+#include<string.h>
 RPi_io::RPi_io(const char* device)
 {
   if((fd = open(device,O_RDWR)) < 0){
