@@ -5,7 +5,7 @@
 int main()
 {
   ADCPiPlus adc = ADCPiPlus(0x68,1,0,18,1);
-  adc.read();
+  while(1)std::cout << adc.read() << std::endl;
 
   return 0;
 }
