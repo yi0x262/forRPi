@@ -6,7 +6,7 @@
 int main(int argc,char* argv[])
 {
   int address = atoi(argv[1]);
-  int channel = atoi(argv[2])
+  int channel = atoi(argv[2]);
   int conversion = atoi(argv[3]);
   int bit_rate = atoi(argv[4]);
   int pga = atoi(argv[5]);
