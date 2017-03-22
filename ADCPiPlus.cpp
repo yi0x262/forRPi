@@ -7,7 +7,7 @@
 ADCPiPlus::ADCPiPlus(const int address,const int conversion,const int bit_rate,const int pga)
   : RPi_i2c("/dev/i2c-1",address)
 {
-  modeset(channel,conversion,bit_rate,pga);
+  modeset(conversion,bit_rate,pga);
 }
 
 void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
