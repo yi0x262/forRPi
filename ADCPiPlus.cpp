@@ -54,8 +54,9 @@ double ADCPiPlus::read()
         raw &= (raw>>15) ? 0:~(1<<15);
         break;
       default:
+        break;
     }
   }
 
-  return raw*(lsb/gain) * 2.471//magic number
+  return raw*(lsb/gain) * 2.471;//magic number
 }
