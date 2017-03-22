@@ -5,7 +5,7 @@
 
 int main(int argc,char* argv[])
 {
-  ADCPiPlus adc[4];
+  ADCPiPlus* adc = new ADCPiPlus[4];
 
   int address = atoi(argv[1]);
   //int channel = atoi(argv[2]);
@@ -16,7 +16,7 @@ int main(int argc,char* argv[])
   for(int c = 0; c < 4; ++c)adc[c] = ADCPiPlus(address,c+1,conversion,bit_rate,1);
   while(1)
   {
-    for(auto& a : adc)std::cout << a.read()
+    for(auto& a : adc)std::cout << a.read();
     std::cout << std::endl;
   }
 
