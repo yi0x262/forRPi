@@ -3,6 +3,7 @@
 
 class RPi_i2c:public RPi_io
 {
+protected:
   int _read(char buffer[])const;
   int _write(char buffer[])const;
 public:
