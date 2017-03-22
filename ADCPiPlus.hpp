@@ -2,7 +2,7 @@
 
 class ADCPiPlus : public RPi_i2c
 {
-  double lsb = 0.;
+  const double lsb = 5.e-4;
   double gain = 0.;
   char adctx = static_cast<char>(0x9c);
   char adcrx[4];
