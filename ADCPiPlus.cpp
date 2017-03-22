@@ -1,38 +1,61 @@
 #include"ADCPiPlus.hpp"
 
 #include<fcntl.h>//ioctl
-#include
+#include<cmath>//log2
 
 
-ADCPiPlus::ADCPiPlus(const int address):RPi_i2c("/dev/i2c-0",address){}
-
-void ADCPiPlus::modeset(const int channel,const int mode)
+ADCPiPlus::ADCPiPlus(const int address,const int channel,const int conversion,const int bit_rate,const int pga)
+  : RPi_i2c("/dev/i2c-0",address)
 {
-  //Mode
-  //0:single Ended
-  //1:Differential
-  //channel
-  //1 or 2
-  if((channel==1 && channel==2)&&(mode==0 || mode==1))
-    throw std::runtime_error("arguments out range")
-  adctx[1] = static_cast<char>( ((channel-1)==mode)*0x80 | (channel==2)*0x40 );
+  modeset(channel,conversion,bit_rate,pga);
 }
-double ADCPiPlus::read(const int channel,const int mode)
+
+void ADCPiPlus::modeset(const int channel,const int conversion,const int bit_rate,const int pga)
 {
-/*
-  struct spi_ioc_transfer tr = {
-    .tx_buf = static_cast<uintptr_t>(adctx),
-    .rx_buf = static_cast<uintptr_t>(adcrx),
-    .len = 3,
-    .delay_usecs = 0,
-    .speed_hz = spi_speed,
-    .bits_per_word = 8
-  };
-  ioctl(fd,SPI_IOC_MESSAGE(1), &tr);
-*/
-  modeset(channel,mode);
-  _write(adctx);
-  _read(adcrx);
-  auto rawval = (adcrx[1]&0x0f << 8) + adcrx[2];
-  return static_cast<double>((adcrefvoltage/0x1000f)*rawval);
+  //adctx[0]  : 1,channel,channel,conversion,bitrate,bitrate,pga,pga
+
+  //pga       : 1,2,4,8
+  //bit_rate  : 12,14,16,18
+  //conversion: 0,1
+  //channel   : 1,2,3,4
+  adctx = std::log2(0x0f&pga)
+        | ((bit_rate/2-6)&0x03 << 2)
+        | ((conversion==1) << 4)
+        | ((channel-1)&0x03 << 5)
+        | 0x80;
+  lsb = 0.001/(bitrate-11);
+  gain = pga/2.;
+}
+double ADCPiPlus::read()
+{
+  int raw = -1;
+  _write(&adctx);
+  if(adctx&0x0c == 0x0c)//bitrate:18
+  {
+    _read(adcrx);
+    raw = ((adcrx[0]&0x03)<<16) | (adcrx[1] << 8) | adcrx[2];
+    raw &= (raw>>17) ? 0:~(1<<17);
+  }
+  else
+  {
+    _read(&adcrx[1]);
+    switch(adctx&0x0c >> 2)
+    {
+      case 0://bitrate:12
+        raw = ((adcrx[1]&0x0f) << 8) | adcrx[2];
+        raw &= (raw>>11) ? 0:~(1<<11);
+        break;
+      case 1://bitrate:14
+        raw = ((adcrx[1]&0x3f) << 8) | adcrx[2];
+        raw &= (raw>>13) ? 0:~(1<<13);
+        break;
+      case 2://bitrate:16
+        raw = (adcrx[1] << 8) | adcrx[2];
+        raw &= (raw>>15) ? 0:~(1<<15);
+        break;
+      default:
+    }
+  }
+
+  return raw*(lsb/gain) * 2.471//magic number
 }
