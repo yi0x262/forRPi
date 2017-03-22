@@ -7,7 +7,7 @@
 RPi_io::RPi_io(const char* device)
 {
   if((fd = open(device,O_RDWR)) < 0){
-    perror("fd=%d\terrno=:%d,\t%s\n",fd,errno,strerror(errno));
+    printf("fd=%d\terrno=:%d,\t%s\n",fd,errno,strerror(errno));
     throw std::runtime_error("device open error");
   }
 }
