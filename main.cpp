@@ -4,8 +4,8 @@
 
 int main()
 {
-  ADCPiPlus adc = ADCPiPlus(0x68);
-  adc.read(1,1);
+  ADCPiPlus adc = ADCPiPlus(0x68,1,0,18,1);
+  adc.read();
 
   return 0;
 }
