@@ -24,10 +24,11 @@ void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
         | 0x80;
   gain = pga/2.;
 }
-
+#include<iostream>
 void ADCPiPlus::setchannel(const int channel)
 {
   adctx = (adctx&0x9f) | (((channel-1)&0x03) << 5);
+  std::cout << adctx << std::endl;
 }
 
 double ADCPiPlus::read(const int channel)

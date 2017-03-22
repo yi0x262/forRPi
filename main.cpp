@@ -12,7 +12,7 @@ int main(int argc,char* argv[])
 
   ADCPiPlus adc(address,conversion,bit_rate,1);
 
-  std::cout << address << conversion << bit_rate << std::endl;
+  //std::cout << address << conversion << bit_rate << std::endl;
   while(1)
   {
     for(auto c : {1,2,3,4})std::cout << adc.read(c) << "\t";
