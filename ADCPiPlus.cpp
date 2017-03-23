@@ -27,12 +27,12 @@ void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
         | 0x80;
   lsb = 1e-3/(1<<bit_rate-11);
   gain = pga/2.;
-  std::cout << std::bitset<8>(adctx) << std::endl;
+  //std::cout << std::bitset<8>(adctx) << std::endl;
 }
 void ADCPiPlus::setchannel(const int channel)
 {
   adctx = (adctx&0x9f) | (((channel-1)&0x03) << 5);
-  std::cout << std::bitset<8>(adctx) << " ";
+  //std::cout << std::bitset<8>(adctx) << " ";
 }
 
 double ADCPiPlus::read(const int channel)
@@ -45,19 +45,12 @@ double ADCPiPlus::read(const int channel)
   if((adctx&0x0c) == 0x0c)//bitrate:18
   {
     _read(adcrx);
-    std::cout << std::bitset<8>(adcrx[0]);
-    std::cout << std::bitset<8>(adcrx[1]);
-    std::cout << std::bitset<8>(adcrx[2]);
-    std::cout << " 18 ";
     raw = ((adcrx[0]&0x03)<<16) | (adcrx[1] << 8) | adcrx[2];
     //raw &= (raw>>17) ? 0:~(1<<17);
   }
   else
   {
     _read(&adcrx[1]);
-    std::cout << std::bitset<8>(adcrx[1]);
-    std::cout << std::bitset<8>(adcrx[2]);
-    std::cout << " ?? ";
     switch((adctx&0x0c) >> 2)
     {
       case 0://bitrate:12
