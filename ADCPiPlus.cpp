@@ -42,12 +42,14 @@ double ADCPiPlus::read(const int channel)
   if(adctx&0x0c == 0x0c)//bitrate:18
   {
     _read(adcrx);
+    std::cout << adcrx << std::endl;
     raw = ((adcrx[0]&0x03)<<16) | (adcrx[1] << 8) | adcrx[2];
     raw &= (raw>>17) ? 0:~(1<<17);
   }
   else
   {
     _read(&adcrx[1]);
+    std::cout << adcrx << std::endl;
     switch(adctx&0x0c >> 2)
     {
       case 0://bitrate:12
