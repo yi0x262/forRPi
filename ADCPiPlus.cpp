@@ -55,7 +55,7 @@ double ADCPiPlus::read(const int channel)
     std::cout << std::bitset<8>(adcrx[1]);
     std::cout << std::bitset<8>(adcrx[2]);
     std::cout << " ";
-    switch(adctx&0x0c >> 2)
+    switch((adctx&0x0c) >> 2)
     {
       case 0://bitrate:12
         raw = ((adcrx[1]&0x0f) << 8) | adcrx[2];
