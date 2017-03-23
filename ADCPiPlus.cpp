@@ -71,6 +71,7 @@ double ADCPiPlus::read(const int channel)
         raw &= (raw>>15) ? 0:~(1<<15);
         break;
       default:
+        std::cout << adctx&0x0c << " ";
         break;
     }
   }
