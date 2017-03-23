@@ -19,7 +19,7 @@ int main(int argc,char* argv[])
     std::cout << adc.read(1);
     //for(auto c : {1,2,3,4})std::cout << adc.read(c) << "\t";
     std::cout << std::endl;
-    usleep(1e6);
+    usleep(1e5);
   }
 
   return 0;
