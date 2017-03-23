@@ -11,6 +11,7 @@ ADCPiPlus::ADCPiPlus(const int address,const int conversion,const int bit_rate,c
 }
 
 #include<iostream>
+#include<bitset>
 void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
 {
   //adctx[0]  : 1,channel,channel,conversion,bitrate,bitrate,pga,pga
@@ -25,13 +26,11 @@ void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
         | ((conversion==1) << 4)
         | 0x80;
   gain = pga/2.;
-  std::cout << adctx << std::endl;
+  std::cout << std::bitset<8>(adctx) << std::endl;
 }
-#include<bitset>
 void ADCPiPlus::setchannel(const int channel)
 {
   adctx = (adctx&0x9f) | (((channel-1)&0x03) << 5);
-  std::cout << std::bitset<8>(adctx) <<" ";
 }
 
 double ADCPiPlus::read(const int channel)
