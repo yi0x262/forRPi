@@ -17,9 +17,12 @@ int main(int argc,char* argv[])
   while(1)
   {
     std::cout << adc.read(1);
-    //for(auto c : {1,2,3,4})std::cout << adc.read(c) << "\t";
+    for(auto c : {1,2,3,4})
+    {
+      std::cout << adc.read(c) << "\t";
+      usleep(1e5);
+    }
     std::cout << std::endl;
-    usleep(1e5);
   }
 
   return 0;
