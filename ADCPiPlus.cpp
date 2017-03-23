@@ -38,7 +38,7 @@ double ADCPiPlus::read(const int channel)
   int raw = -1;
 
   setchannel(channel);
-  _write(adctx);
+  _write(&adctx);
 
   if(adctx&0x0c == 0x0c)//bitrate:18
   {
