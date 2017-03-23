@@ -25,6 +25,7 @@ void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
         | (((bit_rate/2-6)&0x03) << 2)
         | ((conversion==1) << 4)
         | 0x80;
+  lsb = 1e-3/(1<<bit_rate-11);
   gain = pga/2.;
   std::cout << std::bitset<8>(adctx) << std::endl;
 }
