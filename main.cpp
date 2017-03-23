@@ -16,8 +16,8 @@ int main(int argc,char* argv[])
   //std::cout << address << conversion << bit_rate << std::endl;
   while(1)
   {
-
-    for(auto c : {1,2})
+    for (int c = 0; c < 4; ++c)
+    //for(auto c : {1,2})
     {
       std::cout << adc.read(c) << "\t";
       usleep(1e6);
