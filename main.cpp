@@ -3,6 +3,7 @@
 #include<iostream>
 #include<cstdlib>
 #include<vector>
+#include<unistd.h>//usleep
 
 int main(int argc,char* argv[])
 {
@@ -15,9 +16,10 @@ int main(int argc,char* argv[])
   //std::cout << address << conversion << bit_rate << std::endl;
   while(1)
   {
-    std::cout << adc.read(1);
-    //for(auto c : {1,2,3,4})std::cout << adc.read(c) << "\t";
+    //std::cout << adc.read(1);
+    for(auto c : {1,2,3,4})std::cout << adc.read(c) << "\t";
     std::cout << std::endl;
+    usleep(1e6);
   }
 
   return 0;
