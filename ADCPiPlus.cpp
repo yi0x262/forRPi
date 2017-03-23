@@ -4,10 +4,10 @@
 #include<cmath>//log2
 
 
-ADCPiPlus::ADCPiPlus(const int address,const int conversion,const int bit_rate,const int pga)
+ADCPiPlus::ADCPiPlus(const int address,const int conversion,const int bit_rate,const int pga,const int waittime)
   : RPi_i2c("/dev/i2c-1",address)
 {
-  modeset(conversion,bit_rate,pga);
+  modeset(conversion,bit_rate,pga,waittime);
 }
 
 #include<iostream>
