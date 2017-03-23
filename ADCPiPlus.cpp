@@ -21,7 +21,7 @@ void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
   //channel   : 1,2,3,4
   std::cout << std::log2(0x0f&pga)<< bit_rate/2-6 << (conversion==1);
   adctx = static_cast<int>(std::log2(0x0f&pga))
-        | ((bit_rate/2-6)&0x03 << 2)
+        | (((bit_rate/2-6)&0x03) << 2)
         | ((conversion==1) << 4)
         | 0x80;
   gain = pga/2.;
