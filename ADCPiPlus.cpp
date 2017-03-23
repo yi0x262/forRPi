@@ -36,6 +36,7 @@ void ADCPiPlus::setchannel(const int channel)
   //std::cout << std::bitset<8>(adctx) << " ";
 }
 
+#include<unistd.h>//usleep
 double ADCPiPlus::read(const int channel)
 {
   int raw = -1;

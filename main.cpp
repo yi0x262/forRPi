@@ -12,7 +12,7 @@ int main(int argc,char* argv[])
   int bit_rate = atoi(argv[3]);
   int wait_us = atoi(argv[4]);
 
-  ADCPiPlus adc(address,conversion,bit_rate,1);
+  ADCPiPlus adc(address,conversion,bit_rate,1,wait_us);
 
   //std::cout << address << conversion << bit_rate << std::endl;
   while(1)
