@@ -12,7 +12,7 @@ ADCPiPlus::ADCPiPlus(const int address,const int conversion,const int bit_rate,c
 
 #include<iostream>
 #include<bitset>
-void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
+void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga,const int waittime)
 {
   //adctx[0]  : 1,channel,channel,conversion,bitrate,bitrate,pga,pga
 
@@ -27,6 +27,7 @@ void ADCPiPlus::modeset(const int conversion,const int bit_rate,const int pga)
         | 0x80;
   lsb = 1e-3/(1<<bit_rate-11);
   gain = pga/2.;
+  wait_us = waittime;
   //std::cout << std::bitset<8>(adctx) << std::endl;
 }
 void ADCPiPlus::setchannel(const int channel)
@@ -69,6 +70,7 @@ double ADCPiPlus::read(const int channel)
         std::cout << std::bitset<8>(adctx) << " ";
         break;
     }
+    usleep(wait_us);
   }
 
   return raw*(lsb/gain) * 2.471;//magic number
