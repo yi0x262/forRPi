@@ -41,7 +41,7 @@ double ADCPiPlus::read(const int channel)
   setchannel(channel);
   _write(&adctx);
 
-  if(adctx&0x0c == 0x0c)//bitrate:18
+  if((adctx&0x0c) == 0x0c)//bitrate:18
   {
     _read(adcrx);
     std::cout << std::bitset<8>(adcrx[0]);
