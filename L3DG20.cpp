@@ -10,8 +10,8 @@ L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A)
   _write(setup);
 
   //who am i
-  char whoami;
-  _write(0x0f);
+  char whoami = static_cast<char>(0x0f);
+  _write(whoami);
   _read(&whoami);
   std::cout << "who am i\t" << std::bitset<8>(whoami) << std::endl;
 }
