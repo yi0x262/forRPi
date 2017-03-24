@@ -2,6 +2,7 @@
 
 L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A){}
 
+#include<initializer_list>
 int L3DG20::read_xyz(const int reg)
 {
   for(auto i:{0,1})
