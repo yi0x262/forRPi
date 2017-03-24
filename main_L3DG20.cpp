@@ -10,9 +10,10 @@ int main(int argc,char* argv[])
   while(1)
   {
     std::cout << l.read_x() << "\t";
+    usleep(atoi(argv[1]));
     std::cout << l.read_y() << "\t";
+    usleep(atoi(argv[1]));
     std::cout << l.read_z() << "\n";
-
     usleep(atoi(argv[1]));
   }
   return 0;
