@@ -9,11 +9,11 @@ int main(int argc,char* argv[])
   L3DG20 l;
   while(1)
   {
-    std::cout << l.read_x() << "\t";
+    std::cout << l.read_x() << "x\n";
     usleep(atoi(argv[1]));
-    std::cout << l.read_y() << "\t";
+    std::cout << l.read_y() << "y\n";
     usleep(atoi(argv[1]));
-    std::cout << l.read_z() << "\n";
+    std::cout << l.read_z() << "z\n";
     usleep(atoi(argv[1]));
   }
   return 0;
