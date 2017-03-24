@@ -1,16 +1,22 @@
 #include"L3DG20.hpp"
 
+#include<iostream>
+#include<bitset>
+
 static char setup[2] = {(char)0x20,(char)0x0f};
 L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A)
 {
   //setup
   _write(setup);
 
+  //who am i
+  char whoami;
+  _write(0x0f);
+  _read(&whoami);
+  set::cout << "who am i\t" << std::bitset<8>(whoami) << std::endl;
 }
 
 #include<initializer_list>
-#include<iostream>
-#include<bitset>
 int L3DG20::read_xyz(const int reg)
 {
   for(auto i:{0,1})
