@@ -21,7 +21,7 @@ L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A)
   char setup_reg[1] = {(char)0x20};
   _write(setup_reg);
   _read(setup_reg);
-  std::cout << "setup\t" << std::bitset<8>(setup_reg) << std::endl;
+  std::cout << "setup\t" << std::bitset<8>(setup_reg[0]) << std::endl;
 }
 
 #include<initializer_list>
