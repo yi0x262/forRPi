@@ -1,6 +1,12 @@
 #include"L3DG20.hpp"
 
-L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6B){}
+static const char setup[2] = {(char)0x20,(char)0x0f};
+L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6B)
+{
+  //setup
+  _write(setup);
+  
+}
 
 #include<initializer_list>
 int L3DG20::read_xyz(const int reg)
