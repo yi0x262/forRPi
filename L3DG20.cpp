@@ -1,11 +1,11 @@
 #include"L3DG20.hpp"
 
 static const char setup[2] = {(char)0x20,(char)0x0f};
-L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6B)
+L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A)
 {
   //setup
   _write(setup);
-  
+
 }
 
 #include<initializer_list>
