@@ -1,6 +1,6 @@
 #include"L3DG20.hpp"
 
-L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A){}
+L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6B){}
 
 #include<initializer_list>
 int L3DG20::read_xyz(const int reg)
