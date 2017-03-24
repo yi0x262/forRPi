@@ -20,17 +20,19 @@ int L3DG20::read_xyz(const int reg)
   return static_cast<int>(buf.num);
 }
 
-int L3DG20::read_x(void)
+
+static const double gain = 8.75e-3;
+double L3DG20::read_x(void)
 {
-  return read_xyz(0x28);
+  return gain*read_xyz(0x28);
 }
 
-int L3DG20::read_y(void)
+double L3DG20::read_y(void)
 {
-  return read_xyz(0x2a);
+  return gain*read_xyz(0x2a);
 }
 
-int L3DG20::read_z(void)
+double L3DG20::read_z(void)
 {
-  return read_xyz(0x2c);
+  return gain*read_xyz(0x2c);
 }
