@@ -9,35 +9,38 @@
 #include<iostream>
 #define print(var) std::cout << #var << ":" << var << std::endl;
 
-file_descriptor::file_descriptor(const char* device)
+file::file(const char* device) : descriptor(open(device,O_RDWR))
 {
-  if((fd = open(device,O_RDWR)) < 0){
+  if(descriptor < 0){
     throw std::system_error(errno,std::system_category());
   }
 
   #ifdef _debug
-  print(fd);
+  print(descriptor);
   #endif
 }
-int file_descriptor::_read(char buf[],int size) const
+
+int file::get_descriptor(void)const{return descriptor;}
+
+int file::_read(char buf[],int size) const
 {
   #ifdef _debug
   print(sizeof(buf))
   #endif
 
-  return read(fd,buf,size);
+  return read(descriptor,buf,size);
 }
 
-int file_descriptor::_write(const char buf[]) const
+int file::_write(const char buf[]) const
 {
   #ifdef _debug
   std::cout << strlen(buf) << strlen(buf) << std::endl;
   #endif
 
-  return write(fd,buf,strlen(buf));
+  return write(descriptor,buf,strlen(buf));
 }
 
-file_descriptor::~file_descriptor()
+file::~file()
 {
-  close(fd);
+  close(descriptor);
 }
