@@ -6,11 +6,16 @@
 #include<cerrno>
 #include<system_error>
 
-file i2c_manager::bus
+int i2c_manager::i2c_descriptor = -1;
 
 i2c_manager::i2c_manager(const char device[], const int address)
 {
-  if(ioctl(fd,I2C_SLAVE,address)<0)
+  if(i2c_descriptor < 0)//ugly
+  {
+    bus = file(device);
+    i2c_descriptor = bus.get_descriptor();
+  }
+  if(ioctl(i2c_descriptor,I2C_SLAVE,address)<0)
   {
     throw std::system_error(errno,std::system_category());
   }

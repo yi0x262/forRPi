@@ -2,7 +2,8 @@
 
 class i2c_manager
 {
-  static file bus;
+  static int i2c_descriptor;
+  file bus;
 public:
   RPi_i2c(const char device[],const int address);
   int write(char buf[])const;
