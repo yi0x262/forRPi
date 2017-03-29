@@ -23,8 +23,9 @@ int main(){
   while(1){
     for(auto i : {0,1,2,3,4,5}){
       buf[0] = static_cast<unsigned char>(0x28+i);
-      write(fd,buf,1);
-      read(fd,buf,1);
+      int w = write(fd,buf,1);
+      int r = read(fd,buf,1);
+      cout << w << " " << r << " ";
       data[i] = buf[0];
       cout << std::bitset<8>(buf[0]) << " ";
       usleep(100000);
