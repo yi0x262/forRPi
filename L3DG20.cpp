@@ -28,14 +28,15 @@ L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A)
 int L3DG20::read_xyz(const int reg)
 {
   char send[1];
+  char receive[2] = {(char)0x00,(char)0x00};
   for(auto i:{0,1})
   {
     send[0] = static_cast<char>(reg+i);
     _write(send);
     _read(send);//x_low:0x28,x_high:0x29
-    buf.buf[static_cast<int>(i==0)] = send[0];
+    receive[i] = send[0];
   }
-  std::cout <<std::bitset<8>(send[0]) << " " << std::bitset<16>(buf.num) << " ";
+  std::cout <<std::bitset<8>(send[0]) << " " << std::bitset<8>(receive[0])<<std::bitset<8>(receive[1]) << " ";
   return static_cast<int>(buf.num);
 }
 
