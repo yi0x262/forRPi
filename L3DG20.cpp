@@ -5,6 +5,8 @@
 
 #include<stdexcept>
 
+#include<unistd.h>
+
 static char setup[2] = {(char)0x20,(char)0x0f};
 L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A)
 {
@@ -36,6 +38,7 @@ int L3DG20::read_xyz(const int reg)
     _read(send);//x_low:0x28,x_high:0x29
     std::cout <<std::bitset<8>(send[0]) << " ";// << std::bitset<8>(receive[0])<<std::bitset<8>(receive[1]) << " ";
     receive[i] = send[0];
+    usleep(10000);
   }
   //std::cout <<std::bitset<8>(send[0]) << " " << std::bitset<8>(receive[0])<<std::bitset<8>(receive[1]) << " ";
   return static_cast<int>(buf.num);
