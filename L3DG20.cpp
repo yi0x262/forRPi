@@ -6,6 +6,8 @@
 #include<stdexcept>
 
 #include<unistd.h>
+#include<cerrno>
+#include<system_error>
 
 static char setup[2] = {(char)0x20,(char)0x0f};
 L3DG20::L3DG20() : RPi_i2c("/dev/i2c-1",0x6A)
@@ -35,7 +37,7 @@ int L3DG20::read_xyz(const int reg)
   {
     send[0] = static_cast<char>(reg+i);
     std::cout <<std::bitset<8>(send[0]) << " ";// << std::bitset<8>(receive[0])<<std::bitset<8>(receive[1]) << " ";
-    if(_write(send) != 1)std::cout << "error writing\n";
+    if(_write(send) != 1)std::system_error(errno,std::system_category());
     if(_read(send) != 1)std::cout << "error reading\n";
     std::cout <<std::bitset<8>(send[0]) << " ";// << std::bitset<8>(receive[0])<<std::bitset<8>(receive[1]) << " ";
     receive[i] = send[0];
