@@ -6,6 +6,7 @@ using std::endl;
 #include<fcntl.h>
 #include<sys/ioctl.h>
 #include<unistd.h>
+#include<linux/i2c-dev.h>//read,write
 
 int main(){
   int fd;
@@ -25,7 +26,7 @@ int main(){
       write(fd,buf,1);
       read(fd,buf,1);
       data[i] = buf[0];
-      cout << std::bitset<8>(buf[0]) << " "
+      cout << std::bitset<8>(buf[0]) << " ";
       usleep(100000);
     }
     cout << endl;
