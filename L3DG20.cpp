@@ -35,8 +35,8 @@ int L3DG20::read_xyz(const int reg)
   {
     send[0] = static_cast<char>(reg+i);
     std::cout <<std::bitset<8>(send[0]) << " ";// << std::bitset<8>(receive[0])<<std::bitset<8>(receive[1]) << " ";
-    if(_write(send) != 1)set::cout << "error writing\n";
-    if(_read(send) != 1)set::cout << "error reading\n";
+    if(_write(send) != 1)std::cout << "error writing\n";
+    if(_read(send) != 1)std::cout << "error reading\n";
     std::cout <<std::bitset<8>(send[0]) << " ";// << std::bitset<8>(receive[0])<<std::bitset<8>(receive[1]) << " ";
     receive[i] = send[0];
     usleep(1000000);
