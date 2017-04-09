@@ -5,6 +5,7 @@
 #include<unistd.h>//close
 #include<sys/ioctl.h>//ioctl
 #include<linux/i2c-dev.h>//I2C_SLAVE
+#include<cstring>//strlen
 
 #include<cerrno>//errno
 #include<system_error>//system_error,
@@ -39,9 +40,9 @@ i2c_descriptor::~i2c_descriptor()
 }
 
 
-int get_descriptor(void)const
+int i2c_descriptor::get_descriptor(void)const
 {
-  return desciptor;
+  return descriptor;
 }
 
 
