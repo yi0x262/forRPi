@@ -10,49 +10,38 @@
 #include<cerrno>//errno
 #include<system_error>//system_error,
 
-int i2c_descriptor::descriptor = -1;
 int i2c_descriptor::instance_counter = 0;
+file* i2c_descriptor::fd = nullptr;
 
 i2c_descriptor::i2c_descriptor(const char device[], const int address)
 {
   ++instance_counter;
 
-  if(descriptor >= 0)return;
+  if(fd != nullptr)return;//guard
 
-  if((descriptor = open(device,O_RDWR)) >= 0)
-  {
-    if(ioctl(descriptor,I2C_SLAVE,address) >= 0)
-    {
-      return;
-    }
+  fd(device);
+
+  if(ioctl(fd.descriptor,I2C_SLAVE,address) < 0){
+    throw std::system_error(errno,std::system_category());
   }
-  //descrriptor < 0 and (open < 0 or ioctl < 0)
-  throw std::system_error(errno,std::system_category());
 }
 
+#ifdef _debug
+#include<iostream>
+#endif
 
 i2c_descriptor::~i2c_descriptor()
 {
-  if(--instance_counter == 0)
-  {
-    close(descriptor);
+  #ifdef _debug
+  std::cout << "i2c #" << instance_counter << " closed" << std::endl;
+  #endif
+}
+
+char read_byte(const char buf) const
+{
+  char ret;
+  if(fd._write(&buf)&&fd._read(&ret,1)){
+    return ret;
   }
-}
-
-
-int i2c_descriptor::get_descriptor(void)const
-{
-  return descriptor;
-}
-
-
-int i2c_descriptor::_write(char buf[])const
-{
-  return write(descriptor,buf,strlen(buf));
-}
-
-
-int i2c_descriptor::_read(char buf[],int bufsize)const
-{
-  return read(descriptor,buf,bufsize);
+  throw std::system_error(errno,std::system_category());
 }

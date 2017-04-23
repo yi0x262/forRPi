@@ -6,8 +6,10 @@
 #include<cerrno>
 #include<system_error>
 
+#ifdef _debug
 #include<iostream>
 #define print(var) std::cout << #var << ":" << var << std::endl;
+#endif
 
 file::file(const char* device) : descriptor(open(device,O_RDWR))
 {
@@ -19,8 +21,6 @@ file::file(const char* device) : descriptor(open(device,O_RDWR))
   print(descriptor);
   #endif
 }
-
-int file::get_descriptor(void)const{return descriptor;}
 
 int file::_read(char buf[],int size) const
 {
@@ -42,5 +42,9 @@ int file::_write(const char buf[]) const
 
 file::~file()
 {
+  #ifdef _debug
+  std::cout << "fd " << descriptor << " closed" << std::endl;
+  #endif
+
   close(descriptor);
 }
