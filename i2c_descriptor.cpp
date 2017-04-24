@@ -1,4 +1,3 @@
-//If it could, i2c_descriptor should inherit 'file'... but I gave up.
 #include"i2c_descriptor.hpp"
 
 #include<fcntl.h>//open,write,read
