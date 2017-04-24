@@ -31,6 +31,7 @@ i2c_descriptor::i2c_descriptor(const char device[], const int address)
 
 i2c_descriptor::~i2c_descriptor()
 {
+  --instance_counter;
   #ifdef _debug
   std::cout << "i2c #" << instance_counter << " closed" << std::endl;
   #endif
