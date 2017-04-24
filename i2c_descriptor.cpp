@@ -37,11 +37,8 @@ i2c_descriptor::~i2c_descriptor()
   #endif
 }
 
-char read_byte(const char buf) const
+#include<string.h>
+bool read_byte(const char send[], char buf[], size_t buf_size) const
 {
-  char ret;
-  if(fd._write(&buf)&&fd._read(&ret,1)){
-    return ret;
-  }
-  throw std::system_error(errno,std::system_category());
+  return (fd._write(&buf)==strlen(buf))&&(fd._read(buf,buf_size)==buf_size)
 }

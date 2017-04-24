@@ -1,4 +1,4 @@
-#include"RPi_i2c.hpp"
+#include"i2c_descriptor.hpp"
 #include<stdint.h>
 
 union readbuffer2
@@ -7,8 +7,9 @@ union readbuffer2
   char buf[2];
 };
 
-class L3DG20 : private RPi_i2c
+class L3DG20
 {
+  i2c_descriptor fd;
   readbuffer2 buf;
   int read_xyz(const int reg);
 public:
