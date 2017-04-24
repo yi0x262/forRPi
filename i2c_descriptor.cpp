@@ -12,17 +12,13 @@
 int i2c_descriptor::instance_counter = 0;
 file* i2c_descriptor::fd = nullptr;
 
-i2c_descriptor::i2c_descriptor(const char device[], const int address)
+i2c_descriptor::i2c_descriptor(const char device[], const int addr):address(addr)
 {
   ++instance_counter;
 
   if(fd != nullptr)return;//guard
+  fd = new file_descriptor(device);
 
-  fd(device);
-
-  if(ioctl(fd.descriptor,I2C_SLAVE,address) < 0){
-    throw std::system_error(errno,std::system_category());
-  }
 }
 
 #ifdef _debug
@@ -40,5 +36,9 @@ i2c_descriptor::~i2c_descriptor()
 #include<string.h>
 bool read_byte(const char send[], char buf[], size_t buf_size) const
 {
-  return (fd._write(&buf)==strlen(buf))&&(fd._read(buf,buf_size)==buf_size)
+  if(ioctl(fd->descriptor,I2C_SLAVE,address) < 0){
+    throw std::system_error(errno,std::system_category());
+  }
+
+  return (fd->_write(&buf)==strlen(buf))&&(fd->_read(buf,buf_size)==buf_size)
 }

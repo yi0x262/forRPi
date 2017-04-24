@@ -9,7 +9,7 @@ union readbuffer2
 
 class L3DG20
 {
-  i2c_descriptor fd;
+  i2c_descriptor i2c;
   readbuffer2 buf;
   int read_xyz(const int reg);
 public:

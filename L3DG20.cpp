@@ -1,6 +1,6 @@
 #include"L3DG20.hpp"
 
-L3DG20::L3DG20() : fd("/dev/i2c-1",0x6B){}
+L3DG20::L3DG20() : i2c("/dev/i2c-1",0x6B){}
 
 #include<initializer_list>
 int L3DG20::read_xyz(const int reg)
@@ -9,7 +9,7 @@ int L3DG20::read_xyz(const int reg)
   {
     char send = static_cast<char>(reg+i);
     _write(&send);
-    _read(&buf.buf[!i]);//x_low:0x28,x_high:0x29
+    _read(&buf.buf[!i],static_cast<size_t>(1));//x_low:0x28,x_high:0x29
   }
   return static_cast<int>(buf.num);
 }
