@@ -19,5 +19,5 @@ i2c_file::i2c_file(const char device[], const int address):file(device)
 
 bool read_byte(const char send[], char buf[], unsigned buf_size)
 {
-  return (_write(buf)==static_cast<int>(strlen(buf)))&&(_read(buf,buf_size)==buf_size);
+  return (_write(buf)==static_cast<int>(strlen(buf)))&&(_read(buf,buf_size)==static_cast<int>(buf_size));
 }
