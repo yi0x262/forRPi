@@ -22,7 +22,7 @@ file::file(const char* device) : descriptor(open(device,O_RDWR))
   #endif
 }
 
-int file::_read(char buf[],int size) const
+int file::_read(char buf[],unsigned size) const
 {
   #ifdef _debug
   print(sizeof(buf))

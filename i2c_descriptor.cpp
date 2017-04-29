@@ -10,14 +10,14 @@
 #include<system_error>//system_error,
 
 
-i2c_descriptor::i2c_descriptor(const char device[], const int addr):file_descriptor(device)
+i2c_descriptor::i2c_descriptor(const char device[], const int address):file_descriptor(device)
 {
   if(ioctl(descriptor,I2C_SLAVE,address) < 0){
     throw std::system_error(errno,std::system_category());
   }
 }
 
-bool read_byte(const char send[], char buf[], size_t buf_size) const
+bool read_byte(const char send[], char buf[], unsigned buf_size) const
 {
   return (_write(&buf)==strlen(buf))&&(_read(buf,buf_size)==buf_size)
 }
