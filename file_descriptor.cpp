@@ -34,7 +34,7 @@ int file::_read(char buf[],int size) const
 int file::_write(const char buf[]) const
 {
   #ifdef _debug
-  std::cout << strlen(buf) << strlen(buf) << std::endl;
+  std::cout << "strlen(buf)" << strlen(buf) << std::endl;
   #endif
 
   return write(descriptor,buf,strlen(buf));

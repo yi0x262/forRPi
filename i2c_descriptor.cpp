@@ -9,36 +9,15 @@
 #include<cerrno>//errno
 #include<system_error>//system_error,
 
-int i2c_descriptor::instance_counter = 0;
-file* i2c_descriptor::fd = nullptr;
 
-i2c_descriptor::i2c_descriptor(const char device[], const int addr):address(addr)
+i2c_descriptor::i2c_descriptor(const char device[], const int addr):file_descriptor(device)
 {
-  ++instance_counter;
-
-  if(fd != nullptr)return;//guard
-  fd = new file_descriptor(device);
-
-}
-
-#ifdef _debug
-#include<iostream>
-#endif
-
-i2c_descriptor::~i2c_descriptor()
-{
-  --instance_counter;
-  #ifdef _debug
-  std::cout << "i2c #" << instance_counter << " closed" << std::endl;
-  #endif
-}
-
-#include<string.h>
-bool read_byte(const char send[], char buf[], size_t buf_size) const
-{
-  if(ioctl(fd->descriptor,I2C_SLAVE,address) < 0){
+  if(ioctl(descriptor,I2C_SLAVE,address) < 0){
     throw std::system_error(errno,std::system_category());
   }
+}
 
-  return (fd->_write(&buf)==strlen(buf))&&(fd->_read(buf,buf_size)==buf_size)
+bool read_byte(const char send[], char buf[], size_t buf_size) const
+{
+  return (_write(&buf)==strlen(buf))&&(_read(buf,buf_size)==buf_size)
 }
