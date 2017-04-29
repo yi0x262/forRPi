@@ -1,8 +1,8 @@
 #include"file_descriptor.hpp"
 
-class i2c_descriptor:file_descriptor
+class i2c_file:file
 {
 public:
-  i2c_descriptor(const char device[],const int address);
+  i2c_file(const char device[],const int address);
   int read_bytes(const char send[],char buf[],unsigned buf_size)const;
 };

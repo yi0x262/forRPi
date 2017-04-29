@@ -10,7 +10,7 @@
 #include<system_error>//system_error,
 
 
-i2c_descriptor::i2c_descriptor(const char device[], const int address):file_descriptor(device)
+i2c_file::i2c_file(const char device[], const int address):file(device)
 {
   if(ioctl(descriptor,I2C_SLAVE,address) < 0){
     throw std::system_error(errno,std::system_category());
