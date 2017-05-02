@@ -1,7 +1,7 @@
 #include"kondo_servo.hpp"
 
-kondo_servo::kondo_servo(const char device[], const int servo_id):
-  fd(file(device)),id(servo_id){}
+kondo_servo::kondo_servo(const int servo_id):
+  fd(file("/dev/ttyAMA0")),id(servo_id){}
 
 unsigned short kondo_servo::rotate(unsigned short target_angle)
 {
