@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 {
   tcp_client tc(argv[1],12345);
 
-  kondo_servo ks{0,1,2,3,4};
+  kondo_servo ks[5]{0,1,2,3,4};
 
   vector<char> buf;
   char *cbuf = new char[buf.size()];
