@@ -13,7 +13,7 @@ unsigned short kondo_servo::rotate(unsigned short target_angle)
 }
 
 char kondo_servo::current(void){
-  char wbuf = {(char)(0xa0+id),(char)0x03};
+  char wbuf[2] = {(char)(0xa0+id),(char)0x03};
   fd._write(wbuf);
   char buf[5];
   fd._read(buf,5);
@@ -21,8 +21,9 @@ char kondo_servo::current(void){
 }
 
 char kondo_servo::temperature(void){
-  char wbuf = {(char)(0xa0+id),(char)0x04};
+  char wbuf[2] = {(char)(0xa0+id),(char)0x04};
   fd._write(wbuf);
+  char buf[5];
   fd._read(buf,5);
   return buf[4];
 }
