@@ -12,4 +12,4 @@ public:
   char temperature(void);//1byte
 
   ~kondo_servo();
-}
+};
