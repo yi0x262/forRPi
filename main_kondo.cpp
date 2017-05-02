@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
   {
     for(auto k : ks)
     {
-      us_c angle.i = k.rotate(7500);
+      us_c angle;
+      angle.i = k.rotate(7500);
       buf.push_back(angle.c[0]);
       buf.push_back(angle.c[1]);
       buf.push_back(k.current());
