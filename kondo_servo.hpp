@@ -1,6 +1,6 @@
 #include"file_descriptor.hpp"
 
-class kondo_servo:
+class kondo_servo
 {
   const int id;
   file fd;
