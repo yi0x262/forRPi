@@ -21,8 +21,9 @@ unsigned short kondo_servo::rotate(unsigned short target_angle)
 char kondo_servo::get_state(const int sc)const {
   char wbuf[2] = {static_cast<char>(0xa0+id),static_cast<char>(sc)};
   char rbuf[5];//id,sc,rid,rsc,data
-  if(fd._write(wbuf)!=2 || fd._read(rbuf,5)!=5)\
-    throw std::system_error(errno,std::system_category());
+  fd._write(wbuf);
+  fd._read(rbuf,5);
+  //throw std::system_error(errno,std::system_category());
   return rbuf[4];
 }
 
