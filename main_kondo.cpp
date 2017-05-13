@@ -1,3 +1,5 @@
+#define _debug
+
 #include"kondo_servo.hpp"
 
 #include<cstdlib>
