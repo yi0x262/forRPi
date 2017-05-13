@@ -12,20 +12,22 @@ unsigned short kondo_servo::rotate(unsigned short target_angle)
   return static_cast<unsigned short>(rbuf[4])<<7 + static_cast<unsigned short>(rbuf[5]);
 }
 
-char kondo_servo::current(void){
-  char wbuf[2] = {(char)(0xa0+id),(char)0x03};
+char kondo_servo::get_state(const int sc)const {
+  char wbuf[2] = {static_cast<char>(0xa0+id),static_cast<char>(sc)};
   fd._write(wbuf);
-  char buf[5];
-  fd._read(buf,5);
-  return buf[4];
+  char rbuf[5];//id,sc,rid,rsc,data
+  fd._read(rbuf,5);
+  return rbuf[4];
 }
 
-char kondo_servo::temperature(void){
-  char wbuf[2] = {(char)(0xa0+id),(char)0x04};
-  fd._write(wbuf);
-  char buf[5];
-  fd._read(buf,5);
-  return buf[4];
+char kondo_servo::current(void)const
+{
+  return get_state(0x03);
+}
+
+char kondo_servo::temperature(void)const
+{
+  return get_state(0x04);
 }
 
 kondo_servo::~kondo_servo()
