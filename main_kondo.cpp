@@ -13,7 +13,8 @@ int main(int argc, char* argv[])
 
   for(auto k:ks)
   {
-    std::cout << static_cast<int>(k.current()) << " " << static_cast<int>(k.temperature()) << std::endl;
+    std::cout << static_cast<int>(k.current()) << std::endl;
+    std::cout << static_cast<int>(k.temperature()) << std::endl;
   }
 
   return 0;
