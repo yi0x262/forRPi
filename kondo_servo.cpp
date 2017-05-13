@@ -1,5 +1,8 @@
 #include"kondo_servo.hpp"
 
+#include<cerrno>
+#include<system_error>
+
 kondo_servo::kondo_servo(const int servo_id):
   fd(file("/dev/ttyAMA0")),id(servo_id){}
 
@@ -14,10 +17,12 @@ unsigned short kondo_servo::rotate(unsigned short target_angle)
 
 #include<iostream>
 
+
 char kondo_servo::get_state(const int sc)const {
   char wbuf[2] = {static_cast<char>(0xa0+id),static_cast<char>(sc)};
   char rbuf[5];//id,sc,rid,rsc,data
-  std::cout << fd._write(wbuf) << "\t" << fd._read(rbuf,5) << std::endl;
+  if(fd._write(wbuf)!=2 || fd._read(rbuf,5)!=5)\
+    throw std::system_error(errno,std::system_category());
   return rbuf[4];
 }
 
