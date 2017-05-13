@@ -1,7 +1,7 @@
 class file
 {
 protected:
-  const int descriptor = -1;
+  const int descriptor;
 public:
   file(const char* device);
   ~file();
