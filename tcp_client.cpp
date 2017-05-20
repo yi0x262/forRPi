@@ -18,3 +18,8 @@ int tcp_client::transceive(char msg[])
 
   return 0;
 }
+
+tcp_client::~tcp_client()
+{
+  sock.close();
+}
