@@ -25,7 +25,7 @@ int main(int argc,const char* argv[]){
 
   while(true){
     string str;
-    for(auto k : ks)
+    for(auto *k : ks)
     {
       sc r;
       r.s = k.rotate(11500);
