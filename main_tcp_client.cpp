@@ -13,7 +13,7 @@ union sc
 {
   unsigned short s;
   char c[2];
-}
+};
 
 int main(int argc,const char* argv[]){
   tcp_client tc(argv[1],12345);
