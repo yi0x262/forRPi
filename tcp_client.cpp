@@ -9,7 +9,7 @@ tcp_client::tcp_client(const char server_name[],const u_short port_num):tcp_base
   sock.connect(ip::tcp::endpoint(ip::address::from_string(static_cast<std::string>(server_name)),port_num));
 }
 
-int tcp_client::write(const char msg[])const
+int tcp_client::write(const char msg[])
 {
   return boost::asio::write(sock,boost::asio::buffer(static_cast<std::string>(msg)));
 }
