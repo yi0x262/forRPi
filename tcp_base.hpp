@@ -7,5 +7,5 @@ protected:
   boost::asio::ip::tcp::socket sock;
 public:
   tcp_base(void);
-  virtual int transceive(char msg[]) = 0;
+  virtual int write(char msg[]) = 0;
 };
